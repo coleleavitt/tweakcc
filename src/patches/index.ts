@@ -70,6 +70,7 @@ import { writeIncreaseFileReadLimit } from './increaseFileReadLimit';
 import { writeSuppressLineNumbers } from './suppressLineNumbers';
 import { writeSuppressRateLimitOptions } from './suppressRateLimitOptions';
 import { writeSuppressRateLimitWarning } from './suppressRateLimitWarning';
+import { writeDisableServerManagedSettings } from './disableServerManagedSettings';
 import { writeSessionMemory } from './sessionMemory';
 import { writeRememberSkill } from './rememberSkill';
 import { writeThinkingBlockStyling } from './thinkingBlockStyling';
@@ -371,6 +372,13 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.MISC_CONFIGURABLE,
     description:
       'Rate limit warning banners will be suppressed (errors still shown)',
+  },
+  {
+    id: 'disable-server-managed-settings',
+    name: 'Disable server-managed settings',
+    group: PatchGroup.MISC_CONFIGURABLE,
+    description:
+      'Prevent Claude Code from loading enterprise settings delivered by a server',
   },
   {
     id: 'token-count-rounding',
@@ -812,6 +820,10 @@ export const buildPatchImplementations = (
     'suppress-rate-limit-warning': {
       fn: c => writeSuppressRateLimitWarning(c),
       condition: !!config.settings.misc?.suppressRateLimitWarning,
+    },
+    'disable-server-managed-settings': {
+      fn: c => writeDisableServerManagedSettings(c),
+      condition: !!config.settings.misc?.disableServerManagedSettings,
     },
     'token-count-rounding': {
       fn: c =>
