@@ -93,4 +93,26 @@ describe('writeDisableServerManagedSettings', () => {
 
     expect(writeDisableServerManagedSettings(input)).toBeNull();
   });
+  // Real excerpt from CC 2.1.295 (chunk-2vkvwx62.js).
+  const gate2_1_295 =
+    'function V4(){iko()}function BA(){let e=Cz();if(e!==void 0)return e;let{eligible:n,ineligibleReason:i}=k(),E=a.CLAUDE_CODE_EVAL_CONFINED===!0,r=!n&&E;dko(r);let o=n||r;return cko(o,o?void 0:i)}function Y(){return pbr()||Vu()&&JCe()===null}';
+
+  it('disables the Claude Code 2.1.295 remote settings eligibility gate', () => {
+    const result = writeDisableServerManagedSettings(gate2_1_295);
+
+    expect(result).toBe(
+      gate2_1_295.replace(
+        'function BA(){let e=Cz();',
+        'function BA(){return !1;let e=Cz();'
+      )
+    );
+    expect(writeDisableServerManagedSettings(result!)).toBe(result);
+  });
+
+  it('does not patch a 2.1.295-style memo without the eligibility verdict', () => {
+    const input =
+      'function V4(){iko()}function BA(){let e=Cz();if(e!==void 0)return e;let{enabled:n}=k();return cko(n)}';
+
+    expect(writeDisableServerManagedSettings(input)).toBeNull();
+  });
 });
