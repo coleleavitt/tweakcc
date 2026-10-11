@@ -21,15 +21,28 @@ export interface AppliedRecord {
   binaries: Record<string, AppliedBinary>;
 }
 
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+  !!value && typeof value === 'object' && !Array.isArray(value);
+
+/** null when there is no record; a damaged record reads as empty. */
 export const readAppliedRecord = async (): Promise<AppliedRecord | null> => {
+  let text: string;
   try {
-    const record = JSON.parse(
-      await fs.readFile(APPLIED_RECORD_FILE, 'utf8')
-    ) as Partial<AppliedRecord>;
-    return { binaries: record.binaries ?? {} };
+    text = await fs.readFile(APPLIED_RECORD_FILE, 'utf8');
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
     throw error;
+  }
+  try {
+    const parsed: unknown = JSON.parse(text);
+    const binaries = isPlainObject(parsed) ? parsed.binaries : undefined;
+    return {
+      binaries: isPlainObject(binaries)
+        ? (binaries as Record<string, AppliedBinary>)
+        : {},
+    };
+  } catch {
+    return { binaries: {} };
   }
 };
 
@@ -44,8 +57,12 @@ export const sha256File = async (filePath: string): Promise<string> =>
   (await hashFileInChunks(filePath)) as string;
 
 /**
- * Records the binary tweakcc just wrote. Entries for binaries that no longer
- * exist (versions Claude Code has cleaned up) are dropped.
+ * Records the binary tweakcc left at this path after `--apply`: the patched
+ * build, or the restored stock build when no patch changed anything. Recording
+ * the latter is deliberate: it matches the signed manifest anyway, so the
+ * installer gains nothing from it, and it stops the SessionStart check from
+ * relaunching a no-op apply on every session start. Entries for binaries that
+ * no longer exist (versions Claude Code has cleaned up) are dropped.
  */
 export const recordAppliedBinary = async (
   binaryPath: string,

@@ -446,7 +446,12 @@ async function handleApplyMode(
     console.log(`Version: ${ccInstInfo.version}`);
 
     // Pre-apply summary + consent (adhoc-patch already confirms; --apply should too)
-    const planned = getPlannedPatches(config, ccInstInfo.version, patchFilter);
+    const planned = getPlannedPatches(
+      config,
+      ccInstInfo.version,
+      patchFilter,
+      !!ccInstInfo.nativeInstallationPath
+    );
     printApplyPlan(planned, {
       configSource,
       patchFilter,

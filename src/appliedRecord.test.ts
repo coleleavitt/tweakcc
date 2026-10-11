@@ -1,7 +1,21 @@
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+// Point the record at a private directory, so clearAppliedRecord() can never
+// delete a developer's real applied.json, whatever TWEAKCC_CONFIG_DIR says.
+vi.mock('./config', async importOriginal => {
+  const { mkdtempSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const dir = mkdtempSync(join(tmpdir(), 'tweakcc-record-'));
+  return {
+    ...(await importOriginal<typeof import('./config')>()),
+    APPLIED_RECORD_FILE: join(dir, 'applied.json'),
+    ensureConfigDir: async () => {},
+  };
+});
 
 import {
   clearAppliedRecord,
@@ -9,8 +23,17 @@ import {
   readAppliedRecord,
   recordAppliedBinary,
 } from './appliedRecord';
+import { APPLIED_RECORD_FILE } from './config';
 
 describe('applied record', () => {
+  it('reads a damaged record as empty', async () => {
+    const file = APPLIED_RECORD_FILE;
+    for (const text of ['null', '[]', '{"binaries":null}', '{"bina']) {
+      await fs.writeFile(file, text);
+      expect(await readAppliedRecord()).toEqual({ binaries: {} });
+    }
+  });
+
   let dir: string;
   let binary: string;
 

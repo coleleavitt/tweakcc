@@ -46,4 +46,11 @@ describe('SessionStart hook', () => {
       hooks: { SessionStart: [other] },
     });
   });
+
+  it('replaces settings.json atomically and leaves no temporary file', async () => {
+    const before = (await fs.stat(settingsFile())).ino;
+    await installSessionStartHook();
+    expect((await fs.stat(settingsFile())).ino).not.toBe(before);
+    expect(await fs.readdir(dir)).toEqual(['settings.json']);
+  });
 });

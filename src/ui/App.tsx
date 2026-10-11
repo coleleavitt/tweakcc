@@ -140,7 +140,17 @@ Please reapply your changes by running \`${invocationCommand} --apply\`.`,
             ? restoreNativeBinaryFromBackup(startupCheckInfo.ccInstInfo)
             : restoreClijsFromBackup(startupCheckInfo.ccInstInfo);
 
-          restorePromise.then(clearAppliedRecord).then(() => {
+          restorePromise.then(async restored => {
+            if (!restored) {
+              setNotification({
+                message:
+                  'No backup found. Cannot restore original Claude Code.',
+                type: 'error',
+              });
+              return;
+            }
+            // The restored binary is stock; nothing tweakcc wrote is left to keep.
+            await clearAppliedRecord();
             setNotification({
               message: 'Original Claude Code restored successfully!',
               type: 'success',

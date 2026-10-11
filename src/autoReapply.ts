@@ -62,7 +62,10 @@ const readClaudeSettings = async (file: string): Promise<ClaudeSettings> => {
 
 const writeClaudeSettings = async (file: string, settings: ClaudeSettings) => {
   await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.writeFile(file, JSON.stringify(settings, null, 2) + '\n');
+  // Claude Code may read settings.json at any moment; never leave it partial.
+  const temporary = `${file}.${process.pid}.tmp`;
+  await fs.writeFile(temporary, JSON.stringify(settings, null, 2) + '\n');
+  await fs.rename(temporary, file);
 };
 
 /** Removes tweakcc's SessionStart hooks; returns how many were removed. */
@@ -156,16 +159,30 @@ export const runSessionStartCheck = async (): Promise<void> => {
     });
     const binary = ccInstInfo?.nativeInstallationPath;
     if (!binary || (await isRecordedBinary(record, binary))) return;
+    await fs.mkdir(CONFIG_DIR, { recursive: true });
     if (!(await acquireLock(binary))) return;
 
-    const log = await fs.open(AUTO_APPLY_LOG, 'w');
-    const child = spawn(process.execPath, [process.argv[1], '--auto-apply'], {
-      detached: true,
-      stdio: ['ignore', log.fd, log.fd],
-      windowsHide: true,
-    });
-    child.unref();
-    await log.close();
+    try {
+      const log = await fs.open(AUTO_APPLY_LOG, 'w');
+      try {
+        const child = spawn(
+          process.execPath,
+          [process.argv[1], '--auto-apply'],
+          {
+            detached: true,
+            stdio: ['ignore', log.fd, log.fd],
+            windowsHide: true,
+          }
+        );
+        child.unref();
+      } finally {
+        await log.close();
+      }
+    } catch (error) {
+      // Nothing started: don't let the lock block retries for an hour.
+      await fs.rm(AUTO_APPLY_LOCK, { force: true });
+      throw error;
+    }
     process.stdout.write(
       JSON.stringify({
         systemMessage: `tweakcc: Claude Code ${ccInstInfo.version} is not the binary tweakcc patched; re-applying your customizations in the background (log: ${AUTO_APPLY_LOG}). Restart Claude Code once it finishes.`,
