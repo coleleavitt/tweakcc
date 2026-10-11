@@ -63,8 +63,19 @@ const readClaudeSettings = async (file: string): Promise<ClaudeSettings> => {
 const writeClaudeSettings = async (file: string, settings: ClaudeSettings) => {
   await fs.mkdir(path.dirname(file), { recursive: true });
   // Claude Code may read settings.json at any moment; never leave it partial.
+  // The replacement keeps the file's permissions (settings can hold secrets):
+  // the existing mode, or owner-only for a new file.
+  let mode = 0o600;
+  try {
+    mode = (await fs.stat(file)).mode & 0o777;
+  } catch {
+    // New file.
+  }
   const temporary = `${file}.${process.pid}.tmp`;
-  await fs.writeFile(temporary, JSON.stringify(settings, null, 2) + '\n');
+  await fs.writeFile(temporary, JSON.stringify(settings, null, 2) + '\n', {
+    mode,
+  });
+  await fs.chmod(temporary, mode); // writeFile's mode is reduced by umask
   await fs.rename(temporary, file);
 };
 
@@ -174,6 +185,11 @@ export const runSessionStartCheck = async (): Promise<void> => {
             windowsHide: true,
           }
         );
+        // A launch failure can also arrive asynchronously as 'error'.
+        await new Promise<void>((resolve, reject) => {
+          child.once('spawn', resolve);
+          child.once('error', reject);
+        });
         child.unref();
       } finally {
         await log.close();
