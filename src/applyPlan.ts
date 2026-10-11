@@ -206,6 +206,8 @@ export function isPatchEnabledByConfig(
       return isShimmerCustomized(misc?.shimmer);
     case 'prevent-unsupported-updates':
       return !!misc?.preventUpdateToUnsupportedVersions;
+    case 'keep-patched-binary':
+      return misc?.keepPatchedBinaryOnUpdate ?? true;
     case 'webfetch-user-agent':
       return !!misc?.webFetchUserAgent;
     default:

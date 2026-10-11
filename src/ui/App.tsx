@@ -23,6 +23,7 @@ import {
   restoreNativeBinaryFromBackup,
   restoreClijsFromBackup,
 } from '../installationBackup';
+import { clearAppliedRecord } from '../appliedRecord';
 
 export const SettingsContext = createContext({
   settings: DEFAULT_SETTINGS,
@@ -139,7 +140,7 @@ Please reapply your changes by running \`${invocationCommand} --apply\`.`,
             ? restoreNativeBinaryFromBackup(startupCheckInfo.ccInstInfo)
             : restoreClijsFromBackup(startupCheckInfo.ccInstInfo);
 
-          restorePromise.then(() => {
+          restorePromise.then(clearAppliedRecord).then(() => {
             setNotification({
               message: 'Original Claude Code restored successfully!',
               type: 'success',
