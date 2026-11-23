@@ -155,8 +155,8 @@ For code-split native builds, generate the prompts file from the previous versio
 
 ```bash
 cd tools && npm install && cd ..
-pnpm tsx tools/dumpModules.mts ~/.local/share/claude/versions/2.1.311 /tmp/modules-2.1.311.json
-pnpm tsx tools/dumpModules.mts ~/.local/share/claude/versions/2.1.312 /tmp/modules-2.1.312.json
+bun tools/dumpModules.mts ~/.local/share/claude/versions/2.1.311 /tmp/modules-2.1.311.json
+bun tools/dumpModules.mts ~/.local/share/claude/versions/2.1.312 /tmp/modules-2.1.312.json
 node tools/promptExtractor.js --modules /tmp/modules-2.1.312.json \
   --seed data/prompts/prompts-2.1.311.json \
   --previous /tmp/modules-2.1.311.json \

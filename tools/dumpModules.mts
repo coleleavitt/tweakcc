@@ -1,7 +1,7 @@
 // Writes the module map that `promptExtractor.js --modules` reads: each
 // JavaScript module's source, and each text module as `var __t = <JSON>;`.
 //
-//   pnpm tsx tools/dumpModules.mts <claude-binary> <modules.json>
+//   bun tools/dumpModules.mts <claude-binary> <modules.json>
 import * as fs from 'node:fs';
 
 import { extractClaudeJsModulesFromNativeInstallation } from '../src/nativeInstallation';
@@ -13,7 +13,7 @@ import {
 const [binary, output] = process.argv.slice(2);
 if (!binary || !output) {
   console.error(
-    'Usage: pnpm tsx tools/dumpModules.mts <claude-binary> <modules.json>'
+    'Usage: bun tools/dumpModules.mts <claude-binary> <modules.json>'
   );
   process.exit(1);
 }
