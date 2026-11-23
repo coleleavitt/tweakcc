@@ -7,23 +7,23 @@ Thank you for your interest in contributing to tweakcc! This document provides g
 ### Prerequisites
 
 - **Node.js**: 24.x (20.0.0 or higher required)
-- **pnpm**: 11.0.9 or higher
+- **Bun**: 1.3 or higher
 
 ```bash
-pnpm install
+bun install
 ```
 
 ### Running in Development
 
 ```bash
 # Build for development (no minification)
-pnpm build:dev
+bun run build:dev
 
 # Watch mode for iterative development
-pnpm watch
+bun run watch
 
 # Run the CLI locally after building
-pnpm start
+bun run start
 ```
 
 ## Code Style
@@ -43,13 +43,13 @@ This project uses ESLint and Prettier for code formatting and linting.
 
 ```bash
 # Lint and type-check
-pnpm lint
+bun run lint
 
 # Format code
-pnpm format
+bun run format
 
 # Check formatting without modifying files (used in CI)
-pnpm prettier --check src
+bunx prettier --check src
 ```
 
 **Pre-commit hooks** are configured via Husky and lint-staged to automatically format staged files before commit.
@@ -88,16 +88,16 @@ pnpm prettier --check src
 1. Make your changes following the code style guidelines
 2. Run linting and tests locally:
    ```bash
-   pnpm lint
-   pnpm run test
+   bun run lint
+   bun run test
    ```
 3. Build your changes:
    ```bash
-   pnpm build:dev
+   bun run build:dev
    ```
 4. Test your changes by running the CLI locally:
    ```bash
-   pnpm start
+   bun run start
    ```
 
 ### Testing
@@ -106,10 +106,10 @@ Run tests before submitting:
 
 ```bash
 # Run all tests once
-pnpm run test
+bun run test
 
 # Run tests in watch mode for development
-pnpm run test:dev
+bun run test:dev
 ```
 
 Test files are located in:
@@ -153,11 +153,11 @@ Follow these conventions for clear, meaningful commit messages:
 
 ### Before Submitting
 
-1. Ensure all tests pass: `pnpm run test`
-2. Ensure linting passes: `pnpm lint`
-3. Ensure formatting is correct: `pnpm format`
-4. Rebuild the project: `pnpm build:dev`
-5. Test your changes locally with `pnpm start`
+1. Ensure all tests pass: `bun run test`
+2. Ensure linting passes: `bun run lint`
+3. Ensure formatting is correct: `bun run format`
+4. Rebuild the project: `bun run build:dev`
+5. Test your changes locally with `bun run start`
 
 ### PR Description Template
 

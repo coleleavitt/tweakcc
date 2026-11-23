@@ -16,29 +16,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11.0.9
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
           node-version: 24.x
-          cache: pnpm
           registry-url: https://registry.npmjs.org
 
       - name: Update npm
         run: npm install -g npm@latest
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: bun install --frozen-lockfile
 
       - name: Build project
-        run: pnpm run build
+        run: bun run build
 
+      # npm publishes with the workflow's OIDC token (trusted publishing).
       - name: Publish to npm
-        run: pnpm publish --access public --no-git-checks
+        run: npm publish --access public
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2

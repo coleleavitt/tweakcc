@@ -1390,8 +1390,8 @@ You can use tweakcc by running `npx tweakcc`, or `npm install -g tweakcc` and th
 ```bash
 git clone https://github.com/Piebald-AI/tweakcc.git
 cd tweakcc
-pnpm i
-pnpm build
+bun install
+bun run build
 node dist/index.mjs
 ```
 
@@ -1494,7 +1494,7 @@ For detailed guidelines on development setup, code style, testing, and submittin
 
 1. Fork the repository and create a new branch
 2. Make your changes following the code style guidelines
-3. Run tests and linting: `pnpm test && pnpm lint`
+3. Run tests and linting: `bun run test && bun run lint`
 4. Submit a pull request with a clear description
 
 ## Related projects

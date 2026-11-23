@@ -1,5 +1,0 @@
-allowBuilds:
-  esbuild: true
-  node-lief: false
-minimumReleaseAgeExclude:
-  - node-lief@1.3.2

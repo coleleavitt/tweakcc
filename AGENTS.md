@@ -6,22 +6,22 @@ This document provides guidelines for agentic coding assistants working in this 
 
 ```bash
 # Build
-pnpm build           # Production build (typecheck + minify)
-pnpm build:dev       # Development build (no minification)
-pnpm watch           # Watch mode for iterative development
+bun run build        # Production build (typecheck + minify)
+bun run build:dev    # Development build (no minification)
+bun run watch        # Watch mode for iterative development
 
 # Testing
-pnpm test            # Run all tests once
-pnpm test:dev        # Run tests in watch mode
-npx vitest run <test-file>     # Run single test file
-pnpm run test -- <pattern>     # Run tests matching pattern
+bun run test         # Run all tests once
+bun run test:dev     # Run tests in watch mode
+bunx vitest run <test-file>    # Run single test file
+bun run test <pattern>         # Run tests matching pattern
 
 # Linting & Formatting
-pnpm lint            # Typecheck + ESLint
-pnpm format          # Format code with Prettier
+bun run lint         # Typecheck + ESLint
+bun run format       # Format code with Prettier
 
 # Run CLI
-pnpm start           # Run built CLI
+bun run start        # Run built CLI
 node dist/index.mjs  # Alternative run command
 ```
 
