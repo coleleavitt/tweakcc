@@ -92,6 +92,7 @@ import { writeWorktreeMode } from './worktreeMode';
 import { writeFeatureFlagOverrides } from './featureFlagOverrides';
 import { writeAllowCustomAgentModels } from './allowCustomAgentModels';
 import { writeNestedTeammates } from './nestedTeammates';
+import { writeAgentModelChoice } from './agentModelChoice';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -486,6 +487,13 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       'Let agent-team teammates start teammates of their own (they join the same team)',
+  },
+  {
+    id: 'agent-model-choice',
+    name: 'Agent model choice',
+    group: PatchGroup.FEATURES,
+    description:
+      "Tell the model when to set the Agent tool's model (haiku, sonnet, opus) itself",
   },
   {
     id: 'worktree-mode',
@@ -994,6 +1002,10 @@ export const buildPatchImplementations = (
     'nested-teammates': {
       fn: c => writeNestedTeammates(c),
       condition: !!config.settings.misc?.enableNestedTeammates,
+    },
+    'agent-model-choice': {
+      fn: c => writeAgentModelChoice(c),
+      condition: !!config.settings.misc?.enableAgentModelChoice,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

@@ -721,6 +721,7 @@ export const DEFAULT_SETTINGS: Settings = {
     enableFeatureFlagOverrides: false,
     allowCustomAgentModels: false,
     enableNestedTeammates: false,
+    enableAgentModelChoice: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,

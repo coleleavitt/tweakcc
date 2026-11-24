@@ -175,6 +175,8 @@ export function isPatchEnabledByConfig(
       return !!misc?.allowCustomAgentModels;
     case 'nested-teammates':
       return !!misc?.enableNestedTeammates;
+    case 'agent-model-choice':
+      return !!misc?.enableAgentModelChoice;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':
