@@ -154,7 +154,7 @@ Follow these conventions for clear, meaningful commit messages:
 For code-split native builds, generate the prompts file from the previous version's file:
 
 ```bash
-cd tools && npm install && cd ..
+cd tools && bun install && cd ..
 bun tools/dumpModules.mts ~/.local/share/claude/versions/2.1.311 /tmp/modules-2.1.311.json
 bun tools/dumpModules.mts ~/.local/share/claude/versions/2.1.312 /tmp/modules-2.1.312.json
 node tools/promptExtractor.js --modules /tmp/modules-2.1.312.json \
