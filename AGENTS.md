@@ -4,6 +4,8 @@ This document provides guidelines for agentic coding assistants working in this 
 
 ## Development Commands
 
+Use bun for every command (`bun install`, `bun run <script>`, `bunx <tool>`). Do not use npm, npx or pnpm.
+
 ```bash
 # Build
 bun run build        # Production build (typecheck + minify)
