@@ -720,6 +720,7 @@ export const DEFAULT_SETTINGS: Settings = {
     enableWorktreeMode: true,
     enableFeatureFlagOverrides: false,
     allowCustomAgentModels: false,
+    enableNestedTeammates: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,

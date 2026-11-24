@@ -144,6 +144,7 @@ export interface MiscConfig {
   enableWorktreeMode: boolean;
   enableFeatureFlagOverrides: boolean;
   allowCustomAgentModels: boolean;
+  enableNestedTeammates: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;
