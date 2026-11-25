@@ -27,11 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode scan guidance patch: the REPL prompt tells Claude to scan many files with one shell command instead of one `Read` call per file, which runs permission checks and hooks for every file (#1088) - @coleleavitt
 - Add a Code Mode stable note order patch: a REPL script's inner tool-call rows no longer move a plugin note past a skill body on later requests, which dropped thinking and rewrote the prompt cache (#1089) - @coleleavitt
 - Add a Code Mode REPL PostToolUse for mods patch: a mod's catch-all `classic.PostToolUse` hook now sees REPL and Poll results, so it can redact a script's output with `updatedToolOutput` (#1089) - @coleleavitt
-- Add a Code Mode in -p and SDK hosts patch: stream-json hosts that set their own entrypoint (T3 Code, Orca) can start Code Mode, and headless launches take the opt-in from the environment or user settings once Code Mode was accepted in a terminal (anthropics/claude-code#109679) - @coleleavitt
-- Add a Code Mode in the Desktop app patch: the Desktop app's Code tab can start Code Mode (anthropics/claude-code#110673) - @coleleavitt
-- Add a Code Mode with Remote Control patch: a Code Mode session can use Remote Control, which already gets each script call as its own tool call (anthropics/claude-code#109847) - @coleleavitt
-- Add a Code Mode in background sessions patch: `claude --bg` sessions can start Code Mode once it was accepted in a terminal (anthropics/claude-code#111183) - @coleleavitt
-- Add a team file lock wait patch: in-process teammates started in parallel wait up to about 13 s for the team file lock instead of failing with "Lock file is already being held" - @coleleavitt
+- Add a Code Mode in -p and SDK hosts patch: stream-json hosts that set their own entrypoint (T3 Code, Orca) can start Code Mode, and headless launches take the opt-in from the environment or user settings once Code Mode was accepted in a terminal (anthropics/claude-code#109679) (#1090) - @coleleavitt
+- Add a Code Mode in the Desktop app patch: the Desktop app's Code tab can start Code Mode (anthropics/claude-code#110673) (#1090) - @coleleavitt
+- Add a Code Mode with Remote Control patch: a Code Mode session can use Remote Control, which already gets each script call as its own tool call (anthropics/claude-code#109847) (#1090) - @coleleavitt
+- Add a Code Mode in background sessions patch: `claude --bg` sessions can start Code Mode once it was accepted in a terminal (anthropics/claude-code#111183) (#1090) - @coleleavitt
+- Add a team file lock wait patch: in-process teammates started in parallel wait up to about 13 s for the team file lock instead of failing with "Lock file is already being held" (#1090) - @coleleavitt
 - Add a Code Mode patch that leaves `write()`, `edit()` and `file()` out of the scripts of an agent without the Write, Edit or Read tool, instead of defining helpers that always throw (anthropics/claude-code#110715) - @coleleavitt
 - Add a Code Mode patch that keeps each field's JSON Schema `default` in the TypeScript tool types shown to the model (anthropics/claude-code#111592) - @coleleavitt
 - Add a Code Mode patch that gives the built-in `claude-code-guide` agent the REPL tool, so it runs in Code Mode when the session does (anthropics/claude-code#111386) - @coleleavitt
