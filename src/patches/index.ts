@@ -107,6 +107,11 @@ import { writeCodeModeBackgroundSessions } from './codeModeBackgroundSessions';
 import { writeCodeModeRemoteControl } from './codeModeRemoteControl';
 import { writeCodeModeDesktop } from './codeModeDesktop';
 import { writeCodeModeHeadlessHosts } from './codeModeHeadlessHosts';
+import { writeCodeModeUnavailableHelpers } from './codeModeUnavailableHelpers';
+import { writeCodeModeSchemaDefaults } from './codeModeSchemaDefaults';
+import { writeCodeModeGuideRepl } from './codeModeGuideRepl';
+import { writeCodeModeBackgroundShell } from './codeModeBackgroundShell';
+import { writeCodeModeShellUndefinedCheck } from './codeModeShellUndefinedCheck';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -606,6 +611,41 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       'Let stream-json hosts with their own entrypoint (T3 Code, Orca) start Code Mode, and take the opt-in from the environment or user settings once it was accepted in a terminal',
+  },
+  {
+    id: 'code-mode-unavailable-helpers',
+    name: 'Code Mode: leave out unavailable helpers',
+    group: PatchGroup.FEATURES,
+    description:
+      'Leave write(), edit() and file() out of a Code Mode script when the agent lacks the Write, Edit or Read tool',
+  },
+  {
+    id: 'code-mode-schema-defaults',
+    name: 'Code Mode: schema defaults in tool types',
+    group: PatchGroup.FEATURES,
+    description:
+      "Keep each field's JSON Schema default in the TypeScript tool types Code Mode shows the model",
+  },
+  {
+    id: 'code-mode-guide-repl',
+    name: 'Code Mode: REPL for claude-code-guide',
+    group: PatchGroup.FEATURES,
+    description:
+      'Give the built-in claude-code-guide agent the REPL tool, so it runs in Code Mode when the session does',
+  },
+  {
+    id: 'code-mode-background-shell',
+    name: 'Code Mode: $`cmd`.background()',
+    group: PatchGroup.FEATURES,
+    description:
+      "Add .background() to Code Mode's $, which starts the command as a background task and resolves at once with its task id and output file",
+  },
+  {
+    id: 'code-mode-shell-undefined-check',
+    name: 'Code Mode: $(string) refuses undefined',
+    group: PatchGroup.FEATURES,
+    description:
+      "Make Code Mode's $(command) refuse a command string with the word undefined, which an untagged template literal writes for an undefined value",
   },
   {
     id: 'worktree-mode',
@@ -1174,6 +1214,26 @@ export const buildPatchImplementations = (
     'code-mode-headless-hosts': {
       fn: c => writeCodeModeHeadlessHosts(c),
       condition: !!config.settings.misc?.codeModeInHeadlessHosts,
+    },
+    'code-mode-unavailable-helpers': {
+      fn: c => writeCodeModeUnavailableHelpers(c),
+      condition: !!config.settings.misc?.removeCodeModeUnavailableHelpers,
+    },
+    'code-mode-schema-defaults': {
+      fn: c => writeCodeModeSchemaDefaults(c),
+      condition: !!config.settings.misc?.enableCodeModeSchemaDefaults,
+    },
+    'code-mode-guide-repl': {
+      fn: c => writeCodeModeGuideRepl(c),
+      condition: !!config.settings.misc?.enableCodeModeGuideRepl,
+    },
+    'code-mode-background-shell': {
+      fn: c => writeCodeModeBackgroundShell(c),
+      condition: !!config.settings.misc?.enableCodeModeBackgroundShell,
+    },
+    'code-mode-shell-undefined-check': {
+      fn: c => writeCodeModeShellUndefinedCheck(c),
+      condition: !!config.settings.misc?.enableCodeModeShellUndefinedCheck,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

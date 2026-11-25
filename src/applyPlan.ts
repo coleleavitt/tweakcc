@@ -203,6 +203,16 @@ export function isPatchEnabledByConfig(
       return !!misc?.codeModeInDesktop;
     case 'code-mode-headless-hosts':
       return !!misc?.codeModeInHeadlessHosts;
+    case 'code-mode-unavailable-helpers':
+      return !!misc?.removeCodeModeUnavailableHelpers;
+    case 'code-mode-schema-defaults':
+      return !!misc?.enableCodeModeSchemaDefaults;
+    case 'code-mode-guide-repl':
+      return !!misc?.enableCodeModeGuideRepl;
+    case 'code-mode-background-shell':
+      return !!misc?.enableCodeModeBackgroundShell;
+    case 'code-mode-shell-undefined-check':
+      return !!misc?.enableCodeModeShellUndefinedCheck;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':

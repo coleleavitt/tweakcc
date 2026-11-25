@@ -159,6 +159,11 @@ export interface MiscConfig {
   codeModeWithRemoteControl: boolean;
   codeModeInDesktop: boolean;
   codeModeInHeadlessHosts: boolean;
+  removeCodeModeUnavailableHelpers: boolean;
+  enableCodeModeSchemaDefaults: boolean;
+  enableCodeModeGuideRepl: boolean;
+  enableCodeModeBackgroundShell: boolean;
+  enableCodeModeShellUndefinedCheck: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;

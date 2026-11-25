@@ -32,6 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode with Remote Control patch: a Code Mode session can use Remote Control, which already gets each script call as its own tool call (anthropics/claude-code#109847) - @coleleavitt
 - Add a Code Mode in background sessions patch: `claude --bg` sessions can start Code Mode once it was accepted in a terminal (anthropics/claude-code#111183) - @coleleavitt
 - Add a team file lock wait patch: in-process teammates started in parallel wait up to about 13 s for the team file lock instead of failing with "Lock file is already being held" - @coleleavitt
+- Add a Code Mode patch that leaves `write()`, `edit()` and `file()` out of the scripts of an agent without the Write, Edit or Read tool, instead of defining helpers that always throw (anthropics/claude-code#110715) - @coleleavitt
+- Add a Code Mode patch that keeps each field's JSON Schema `default` in the TypeScript tool types shown to the model (anthropics/claude-code#111592) - @coleleavitt
+- Add a Code Mode patch that gives the built-in `claude-code-guide` agent the REPL tool, so it runs in Code Mode when the session does (anthropics/claude-code#111386) - @coleleavitt
+- Add a Code Mode patch that adds `$`cmd`.background()`, which starts a shell command as a background task and resolves at once with its task id and output file (anthropics/claude-code#110717) - @coleleavitt
+- Add a Code Mode patch that makes `$(command)` refuse a command string with the word `undefined`, which an untagged template literal writes for an undefined value - @coleleavitt
 
 ## [v4.4.0](https://github.com/Piebald-AI/tweakcc/releases/tag/v4.4.0) - 2026-10-10
 

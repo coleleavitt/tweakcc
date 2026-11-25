@@ -109,6 +109,11 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     codeModeWithRemoteControl: false,
     codeModeInDesktop: false,
     codeModeInHeadlessHosts: false,
+    removeCodeModeUnavailableHelpers: false,
+    enableCodeModeSchemaDefaults: false,
+    enableCodeModeGuideRepl: false,
+    enableCodeModeBackgroundShell: false,
+    enableCodeModeShellUndefinedCheck: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -1085,6 +1090,78 @@ export function MiscView({ onSubmit }: MiscViewProps) {
           updateSettings(settings => {
             ensureMisc();
             settings.misc!.teamFileLockWait = !settings.misc!.teamFileLockWait;
+          });
+        },
+      },
+      {
+        id: 'removeCodeModeUnavailableHelpers',
+        title: 'Code Mode: leave out unavailable helpers',
+        description:
+          'In Code Mode, a subagent without Write, Edit or Read (Explore, Plan) gets no write(), edit() or file() in its scripts, instead of functions that always throw.',
+        getValue: () =>
+          settings.misc?.removeCodeModeUnavailableHelpers ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.removeCodeModeUnavailableHelpers =
+              !settings.misc!.removeCodeModeUnavailableHelpers;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeSchemaDefaults',
+        title: 'Code Mode: schema defaults in tool types',
+        description:
+          'Show a field\'s JSON Schema default, as "(default 5000)", in the TypeScript types of Code Mode\'s tool declarations and searchTools results.',
+        getValue: () => settings.misc?.enableCodeModeSchemaDefaults ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeSchemaDefaults =
+              !settings.misc!.enableCodeModeSchemaDefaults;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeGuideRepl',
+        title: 'Code Mode: REPL for claude-code-guide',
+        description:
+          "Add REPL to the built-in claude-code-guide agent's tools, so in a Code Mode session it searches and fetches docs from scripts instead of one tool call per page.",
+        getValue: () => settings.misc?.enableCodeModeGuideRepl ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeGuideRepl =
+              !settings.misc!.enableCodeModeGuideRepl;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeBackgroundShell',
+        title: 'Code Mode: $`cmd`.background()',
+        description:
+          'In Code Mode scripts, $`cmd`.background() (or a timeout of 0) starts the command as a background task and resolves at once with running.taskId and running.outputPath, instead of waiting out a timeout.',
+        getValue: () => settings.misc?.enableCodeModeBackgroundShell ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeBackgroundShell =
+              !settings.misc!.enableCodeModeBackgroundShell;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeShellUndefinedCheck',
+        title: 'Code Mode: $(string) refuses undefined',
+        description:
+          "In Code Mode scripts, $(command) with a plain string throws before running when the string has the word undefined (an untagged template literal's undefined value); the tagged form $`...` already checks its values.",
+        getValue: () =>
+          settings.misc?.enableCodeModeShellUndefinedCheck ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeShellUndefinedCheck =
+              !settings.misc!.enableCodeModeShellUndefinedCheck;
           });
         },
       },
