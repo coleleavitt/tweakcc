@@ -147,6 +147,8 @@ export interface MiscConfig {
   enableNestedTeammates: boolean;
   enableAgentModelChoice: boolean;
   enableStableEventNonces: boolean;
+  showReadResultContent: boolean;
+  showCodeModeScriptOutput: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;

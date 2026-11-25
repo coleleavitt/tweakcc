@@ -179,6 +179,10 @@ export function isPatchEnabledByConfig(
       return !!misc?.enableAgentModelChoice;
     case 'stable-event-nonces':
       return !!misc?.enableStableEventNonces;
+    case 'read-result-content':
+      return !!misc?.showReadResultContent;
+    case 'code-mode-async-script-output':
+      return !!misc?.showCodeModeScriptOutput;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':

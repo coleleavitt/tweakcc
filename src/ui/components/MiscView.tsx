@@ -97,6 +97,8 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     enableNestedTeammates: false,
     enableAgentModelChoice: false,
     enableStableEventNonces: false,
+    showReadResultContent: false,
+    showCodeModeScriptOutput: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -905,6 +907,34 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.enableStableEventNonces =
               !settings.misc!.enableStableEventNonces;
+          });
+        },
+      },
+      {
+        id: 'showReadResultContent',
+        title: 'Show Read result content',
+        description:
+          'In the Ctrl+O transcript and in verbose mode, a Read row (also one inside a Code Mode script) shows the file text it returned, not only the line count. Display only: what the model sees does not change.',
+        getValue: () => settings.misc?.showReadResultContent ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.showReadResultContent =
+              !settings.misc!.showReadResultContent;
+          });
+        },
+      },
+      {
+        id: 'showCodeModeScriptOutput',
+        title: 'Show Code Mode script output',
+        description:
+          'In the Ctrl+O transcript, an expanded Code(...) row also shows what the script logged and returned (for an async script, once it has settled). Display only: what the model sees does not change.',
+        getValue: () => settings.misc?.showCodeModeScriptOutput ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.showCodeModeScriptOutput =
+              !settings.misc!.showCodeModeScriptOutput;
           });
         },
       },

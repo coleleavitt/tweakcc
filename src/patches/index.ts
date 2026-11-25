@@ -94,6 +94,9 @@ import { writeAllowCustomAgentModels } from './allowCustomAgentModels';
 import { writeNestedTeammates } from './nestedTeammates';
 import { writeAgentModelChoice } from './agentModelChoice';
 import { writeStableEventNonces } from './stableEventNonces';
+import { writeReadResultContent } from './readResultContent';
+import { writeCodeModeScriptOutput } from './codeModeScriptOutput';
+import { writeCodeModeAsyncScriptOutput } from './codeModeAsyncScriptOutput';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -502,6 +505,27 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       'Keep Code Mode event nonces the same across restarts, so resuming a session does not rewrite its prompt cache',
+  },
+  {
+    id: 'read-result-content',
+    name: 'Read result content',
+    group: PatchGroup.FEATURES,
+    description:
+      'Show the text a Read call returned in the Ctrl+O transcript and in verbose mode',
+  },
+  {
+    id: 'code-mode-script-output',
+    name: 'Code Mode script output',
+    group: PatchGroup.FEATURES,
+    description:
+      "Show a Code Mode script's log and return value below its source in the expanded transcript row",
+  },
+  {
+    id: 'code-mode-async-script-output',
+    name: 'Code Mode async script output',
+    group: PatchGroup.FEATURES,
+    description:
+      'Keep the output of an async Code Mode script when it settles, so its expanded transcript row can show it',
   },
   {
     id: 'worktree-mode',
@@ -1018,6 +1042,18 @@ export const buildPatchImplementations = (
     'stable-event-nonces': {
       fn: c => writeStableEventNonces(c),
       condition: !!config.settings.misc?.enableStableEventNonces,
+    },
+    'read-result-content': {
+      fn: c => writeReadResultContent(c),
+      condition: !!config.settings.misc?.showReadResultContent,
+    },
+    'code-mode-script-output': {
+      fn: c => writeCodeModeScriptOutput(c),
+      condition: !!config.settings.misc?.showCodeModeScriptOutput,
+    },
+    'code-mode-async-script-output': {
+      fn: c => writeCodeModeAsyncScriptOutput(c),
+      condition: !!config.settings.misc?.showCodeModeScriptOutput,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

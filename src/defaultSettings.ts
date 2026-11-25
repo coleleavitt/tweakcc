@@ -723,6 +723,8 @@ export const DEFAULT_SETTINGS: Settings = {
     enableNestedTeammates: false,
     enableAgentModelChoice: false,
     enableStableEventNonces: false,
+    showReadResultContent: false,
+    showCodeModeScriptOutput: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
