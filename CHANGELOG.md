@@ -32,11 +32,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode with Remote Control patch: a Code Mode session can use Remote Control, which already gets each script call as its own tool call (anthropics/claude-code#109847) (#1090) - @coleleavitt
 - Add a Code Mode in background sessions patch: `claude --bg` sessions can start Code Mode once it was accepted in a terminal (anthropics/claude-code#111183) (#1090) - @coleleavitt
 - Add a team file lock wait patch: in-process teammates started in parallel wait up to about 13 s for the team file lock instead of failing with "Lock file is already being held" (#1090) - @coleleavitt
-- Add a Code Mode patch that leaves `write()`, `edit()` and `file()` out of the scripts of an agent without the Write, Edit or Read tool, instead of defining helpers that always throw (anthropics/claude-code#110715) - @coleleavitt
-- Add a Code Mode patch that keeps each field's JSON Schema `default` in the TypeScript tool types shown to the model (anthropics/claude-code#111592) - @coleleavitt
-- Add a Code Mode patch that gives the built-in `claude-code-guide` agent the REPL tool, so it runs in Code Mode when the session does (anthropics/claude-code#111386) - @coleleavitt
-- Add a Code Mode patch that adds `$`cmd`.background()`, which starts a shell command as a background task and resolves at once with its task id and output file (anthropics/claude-code#110717) - @coleleavitt
-- Add a Code Mode patch that makes `$(command)` refuse a command string with the word `undefined`, which an untagged template literal writes for an undefined value - @coleleavitt
+- Add a Code Mode patch that leaves `write()`, `edit()` and `file()` out of the scripts of an agent without the Write, Edit or Read tool, instead of defining helpers that always throw (anthropics/claude-code#110715) (#1091) - @coleleavitt
+- Add a Code Mode patch that keeps each field's JSON Schema `default` in the TypeScript tool types shown to the model (anthropics/claude-code#111592) (#1091) - @coleleavitt
+- Add a Code Mode patch that gives the built-in `claude-code-guide` agent the REPL tool, so it runs in Code Mode when the session does (anthropics/claude-code#111386) (#1091) - @coleleavitt
+- Add a Code Mode patch that adds `$`cmd`.background()`, which starts a shell command as a background task and resolves at once with its task id and output file (anthropics/claude-code#110717) (#1091) - @coleleavitt
+- Add a Code Mode patch that makes `$(command)` refuse a command string with the word `undefined`, which an untagged template literal writes for an undefined value (#1091) - @coleleavitt
 - Add a patch that lists CLAUDE_CODE_EXPERIMENTAL_CODE_MODE in /doctor and /status when a project or local settings file sets it, since Claude Code ignores it there - @coleleavitt
 - Add a patch that keeps the whole text of a cut Code Mode script result in the REPL global `$0` and names it in the result - @coleleavitt
 - Add a patch that gives PostToolUse hooks the whole saved output of a shell call made by a Code Mode script, so a hook's rewrite no longer cuts the script's data to the preview - @coleleavitt
