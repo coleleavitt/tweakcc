@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a feature flag overrides patch: the `CLAUDE_INTERNAL_FC_OVERRIDES` env var (a JSON object) sets Claude Code's GrowthBook flags - @coleleavitt
 - Add a nested teammates patch: agent-team teammates can start teammates of their own, which join the same team - @coleleavitt
 - Add an agent model choice patch: the Agent tool's `model` parameter says when to pick haiku, sonnet or opus for a subagent - @coleleavitt
-- Add a stable event nonces patch: Code Mode's event nonces stay the same across restarts, so resuming a session no longer rewrites its prompt cache from the first re-minted nonce on - @coleleavitt
+- Add a stable event nonces patch: Code Mode's event nonces stay the same across restarts, so resuming a session no longer rewrites its prompt cache from the first re-minted nonce on (#1083) - @coleleavitt
 
 ## [v4.4.0](https://github.com/Piebald-AI/tweakcc/releases/tag/v4.4.0) - 2026-10-10
 
