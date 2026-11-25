@@ -193,6 +193,16 @@ export function isPatchEnabledByConfig(
       return !!misc?.enableCodeModeReplPostToolUseForMods;
     case 'code-mode-stable-note-order':
       return !!misc?.enableCodeModeStableNoteOrder;
+    case 'team-file-lock-wait':
+      return !!misc?.teamFileLockWait;
+    case 'code-mode-background-sessions':
+      return !!misc?.codeModeInBackgroundSessions;
+    case 'code-mode-remote-control':
+      return !!misc?.codeModeWithRemoteControl;
+    case 'code-mode-desktop':
+      return !!misc?.codeModeInDesktop;
+    case 'code-mode-headless-hosts':
+      return !!misc?.codeModeInHeadlessHosts;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':

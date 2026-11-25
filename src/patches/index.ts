@@ -102,6 +102,11 @@ import { writeCodeModeWaitGuidance } from './codeModeWaitGuidance';
 import { writeCodeModeChainedCalls } from './codeModeChainedCalls';
 import { writeCodeModeReplPostToolUseForMods } from './codeModeReplPostToolUseForMods';
 import { writeCodeModeStableNoteOrder } from './codeModeStableNoteOrder';
+import { writeTeamFileLockWait } from './teamFileLockWait';
+import { writeCodeModeBackgroundSessions } from './codeModeBackgroundSessions';
+import { writeCodeModeRemoteControl } from './codeModeRemoteControl';
+import { writeCodeModeDesktop } from './codeModeDesktop';
+import { writeCodeModeHeadlessHosts } from './codeModeHeadlessHosts';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -566,6 +571,41 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       "Keep a REPL script's inner tool-call rows from moving notes after a skill body, so a resent message matches the prompt cache",
+  },
+  {
+    id: 'team-file-lock-wait',
+    name: 'Team file lock wait',
+    group: PatchGroup.FEATURES,
+    description:
+      'Wait up to about 13 s for the team file lock, so parallel teammate spawns don\'t fail with "Lock file is already being held"',
+  },
+  {
+    id: 'code-mode-background-sessions',
+    name: 'Code Mode in background sessions',
+    group: PatchGroup.FEATURES,
+    description:
+      'Let claude --bg sessions start Code Mode once it was accepted in a terminal',
+  },
+  {
+    id: 'code-mode-remote-control',
+    name: 'Code Mode with Remote Control',
+    group: PatchGroup.FEATURES,
+    description:
+      'Let a Code Mode session use Remote Control: --remote-control no longer keeps Code Mode off, and Code Mode no longer keeps the bridge off',
+  },
+  {
+    id: 'code-mode-desktop',
+    name: 'Code Mode in the Desktop app',
+    group: PatchGroup.FEATURES,
+    description:
+      "Let the Desktop app's Code tab start Code Mode; with the Code Mode in -p and SDK hosts patch, the opt-in comes from ~/.claude/settings.json",
+  },
+  {
+    id: 'code-mode-headless-hosts',
+    name: 'Code Mode in -p and SDK hosts',
+    group: PatchGroup.FEATURES,
+    description:
+      'Let stream-json hosts with their own entrypoint (T3 Code, Orca) start Code Mode, and take the opt-in from the environment or user settings once it was accepted in a terminal',
   },
   {
     id: 'worktree-mode',
@@ -1114,6 +1154,26 @@ export const buildPatchImplementations = (
     'code-mode-stable-note-order': {
       fn: c => writeCodeModeStableNoteOrder(c),
       condition: !!config.settings.misc?.enableCodeModeStableNoteOrder,
+    },
+    'team-file-lock-wait': {
+      fn: c => writeTeamFileLockWait(c),
+      condition: !!config.settings.misc?.teamFileLockWait,
+    },
+    'code-mode-background-sessions': {
+      fn: c => writeCodeModeBackgroundSessions(c),
+      condition: !!config.settings.misc?.codeModeInBackgroundSessions,
+    },
+    'code-mode-remote-control': {
+      fn: c => writeCodeModeRemoteControl(c),
+      condition: !!config.settings.misc?.codeModeWithRemoteControl,
+    },
+    'code-mode-desktop': {
+      fn: c => writeCodeModeDesktop(c),
+      condition: !!config.settings.misc?.codeModeInDesktop,
+    },
+    'code-mode-headless-hosts': {
+      fn: c => writeCodeModeHeadlessHosts(c),
+      condition: !!config.settings.misc?.codeModeInHeadlessHosts,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

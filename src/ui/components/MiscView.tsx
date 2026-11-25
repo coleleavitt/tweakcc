@@ -104,6 +104,11 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     codeModeScanGuidance: false,
     enableCodeModeReplPostToolUseForMods: false,
     enableCodeModeStableNoteOrder: false,
+    teamFileLockWait: false,
+    codeModeInBackgroundSessions: false,
+    codeModeWithRemoteControl: false,
+    codeModeInDesktop: false,
+    codeModeInHeadlessHosts: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -1011,6 +1016,75 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.enableCodeModeStableNoteOrder =
               !settings.misc!.enableCodeModeStableNoteOrder;
+          });
+        },
+      },
+      {
+        id: 'codeModeInHeadlessHosts',
+        title: 'Code Mode in -p and SDK hosts',
+        description:
+          'Start Code Mode in claude -p and stream-json hosts that set their own entrypoint (T3 Code, Orca), and take CLAUDE_CODE_EXPERIMENTAL_CODE_MODE from the environment or ~/.claude/settings.json, not only --settings, once Code Mode was accepted in a terminal.',
+        getValue: () => settings.misc?.codeModeInHeadlessHosts ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeInHeadlessHosts =
+              !settings.misc!.codeModeInHeadlessHosts;
+          });
+        },
+      },
+      {
+        id: 'codeModeInDesktop',
+        title: 'Code Mode in the Desktop app',
+        description:
+          "Start Code Mode in the Desktop app's Code tab. The Code tab can't pass --settings, so turn on 'Code Mode in -p and SDK hosts' too and set CLAUDE_CODE_EXPERIMENTAL_CODE_MODE in ~/.claude/settings.json.",
+        getValue: () => settings.misc?.codeModeInDesktop ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeInDesktop =
+              !settings.misc!.codeModeInDesktop;
+          });
+        },
+      },
+      {
+        id: 'codeModeWithRemoteControl',
+        title: 'Code Mode with Remote Control',
+        description:
+          'Let a Code Mode session use Remote Control: starting with --remote-control or remoteControlAtStartup no longer keeps Code Mode off, and Code Mode no longer keeps Remote Control off.',
+        getValue: () => settings.misc?.codeModeWithRemoteControl ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeWithRemoteControl =
+              !settings.misc!.codeModeWithRemoteControl;
+          });
+        },
+      },
+      {
+        id: 'codeModeInBackgroundSessions',
+        title: 'Code Mode in background sessions',
+        description:
+          'Start Code Mode in claude --bg sessions, in claude respawn and from the agent view, once Code Mode was accepted in a terminal. Moving or copying a Code Mode session to the background stays refused.',
+        getValue: () => settings.misc?.codeModeInBackgroundSessions ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeInBackgroundSessions =
+              !settings.misc!.codeModeInBackgroundSessions;
+          });
+        },
+      },
+      {
+        id: 'teamFileLockWait',
+        title: 'Wait longer for the team file lock',
+        description:
+          'Let Agent calls with a name wait up to about 13 s for the team file lock instead of 0.65 s, so starting many in-process teammates at once doesn\'t fail with "Lock file is already being held".',
+        getValue: () => settings.misc?.teamFileLockWait ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.teamFileLockWait = !settings.misc!.teamFileLockWait;
           });
         },
       },

@@ -154,6 +154,11 @@ export interface MiscConfig {
   codeModeScanGuidance: boolean;
   enableCodeModeReplPostToolUseForMods: boolean;
   enableCodeModeStableNoteOrder: boolean;
+  teamFileLockWait: boolean;
+  codeModeInBackgroundSessions: boolean;
+  codeModeWithRemoteControl: boolean;
+  codeModeInDesktop: boolean;
+  codeModeInHeadlessHosts: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;
