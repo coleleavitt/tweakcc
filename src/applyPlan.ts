@@ -177,6 +177,8 @@ export function isPatchEnabledByConfig(
       return !!misc?.enableNestedTeammates;
     case 'agent-model-choice':
       return !!misc?.enableAgentModelChoice;
+    case 'stable-event-nonces':
+      return !!misc?.enableStableEventNonces;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':

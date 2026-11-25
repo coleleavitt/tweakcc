@@ -93,6 +93,7 @@ import { writeFeatureFlagOverrides } from './featureFlagOverrides';
 import { writeAllowCustomAgentModels } from './allowCustomAgentModels';
 import { writeNestedTeammates } from './nestedTeammates';
 import { writeAgentModelChoice } from './agentModelChoice';
+import { writeStableEventNonces } from './stableEventNonces';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -494,6 +495,13 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       "Tell the model when to set the Agent tool's model (haiku, sonnet, opus) itself",
+  },
+  {
+    id: 'stable-event-nonces',
+    name: 'Stable event nonces',
+    group: PatchGroup.FEATURES,
+    description:
+      'Keep Code Mode event nonces the same across restarts, so resuming a session does not rewrite its prompt cache',
   },
   {
     id: 'worktree-mode',
@@ -1006,6 +1014,10 @@ export const buildPatchImplementations = (
     'agent-model-choice': {
       fn: c => writeAgentModelChoice(c),
       condition: !!config.settings.misc?.enableAgentModelChoice,
+    },
+    'stable-event-nonces': {
+      fn: c => writeStableEventNonces(c),
+      condition: !!config.settings.misc?.enableStableEventNonces,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

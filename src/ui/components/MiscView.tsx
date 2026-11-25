@@ -96,6 +96,7 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     allowCustomAgentModels: false,
     enableNestedTeammates: false,
     enableAgentModelChoice: false,
+    enableStableEventNonces: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -890,6 +891,20 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.enableAgentModelChoice =
               !settings.misc!.enableAgentModelChoice;
+          });
+        },
+      },
+      {
+        id: 'enableStableEventNonces',
+        title: 'Stable Code Mode event nonces',
+        description:
+          'Keep the nonces in Code Mode tool results the same after a restart or resume, so the prompt cache is not rewritten from the first one.',
+        getValue: () => settings.misc?.enableStableEventNonces ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableStableEventNonces =
+              !settings.misc!.enableStableEventNonces;
           });
         },
       },
