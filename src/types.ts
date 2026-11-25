@@ -164,6 +164,9 @@ export interface MiscConfig {
   enableCodeModeGuideRepl: boolean;
   enableCodeModeBackgroundShell: boolean;
   enableCodeModeShellUndefinedCheck: boolean;
+  warnIgnoredCodeModeEnv: boolean;
+  keepCutReplResult: boolean;
+  hooksSeeWholeScriptShellOutput: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;

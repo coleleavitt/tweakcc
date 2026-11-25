@@ -114,6 +114,9 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     enableCodeModeGuideRepl: false,
     enableCodeModeBackgroundShell: false,
     enableCodeModeShellUndefinedCheck: false,
+    warnIgnoredCodeModeEnv: false,
+    keepCutReplResult: false,
+    hooksSeeWholeScriptShellOutput: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -1162,6 +1165,48 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.enableCodeModeShellUndefinedCheck =
               !settings.misc!.enableCodeModeShellUndefinedCheck;
+          });
+        },
+      },
+      {
+        id: 'warnIgnoredCodeModeEnv',
+        title: 'Warn about ignored Code Mode env',
+        description:
+          'Show a /doctor and /status notice when .claude/settings.json or .claude/settings.local.json sets CLAUDE_CODE_EXPERIMENTAL_CODE_MODE, which Claude Code ignores there.',
+        getValue: () => settings.misc?.warnIgnoredCodeModeEnv ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.warnIgnoredCodeModeEnv =
+              !settings.misc!.warnIgnoredCodeModeEnv;
+          });
+        },
+      },
+      {
+        id: 'keepCutReplResult',
+        title: 'Keep cut Code Mode result in $0',
+        description:
+          'When a Code Mode script result is too long and reaches Claude cut, keep its whole text in the REPL global $0 and tell Claude, so the next script can slice it instead of getting the value again.',
+        getValue: () => settings.misc?.keepCutReplResult ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.keepCutReplResult =
+              !settings.misc!.keepCutReplResult;
+          });
+        },
+      },
+      {
+        id: 'hooksSeeWholeScriptShellOutput',
+        title: 'Hooks see whole Code Mode shell output',
+        description:
+          "Give PostToolUse hooks the whole output of a Bash or PowerShell call made by a Code Mode script (what the script reads), not the 30,000-char preview, so a hook's rewrite no longer cuts the script's data and a secret past the preview is not missed.",
+        getValue: () => settings.misc?.hooksSeeWholeScriptShellOutput ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.hooksSeeWholeScriptShellOutput =
+              !settings.misc!.hooksSeeWholeScriptShellOutput;
           });
         },
       },
