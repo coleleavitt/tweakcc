@@ -97,6 +97,9 @@ import { writeStableEventNonces } from './stableEventNonces';
 import { writeReadResultContent } from './readResultContent';
 import { writeCodeModeScriptOutput } from './codeModeScriptOutput';
 import { writeCodeModeAsyncScriptOutput } from './codeModeAsyncScriptOutput';
+import { writeCodeModeScanGuidance } from './codeModeScanGuidance';
+import { writeCodeModeWaitGuidance } from './codeModeWaitGuidance';
+import { writeCodeModeChainedCalls } from './codeModeChainedCalls';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -526,6 +529,27 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       'Keep the output of an async Code Mode script when it settles, so its expanded transcript row can show it',
+  },
+  {
+    id: 'code-mode-chained-calls',
+    name: 'Code Mode chained calls',
+    group: PatchGroup.FEATURES,
+    description:
+      'Let steps a Code Mode script chains on a command it left running make tool calls when the command ends, instead of being refused',
+  },
+  {
+    id: 'code-mode-wait-guidance',
+    name: 'Code Mode wait guidance',
+    group: PatchGroup.FEATURES,
+    description:
+      'Tell Claude in the Code Mode REPL prompt to wait for CI and other outside events with a background command, not with sleep() or poll loops in a script',
+  },
+  {
+    id: 'code-mode-scan-guidance',
+    name: 'Code Mode scan guidance',
+    group: PatchGroup.FEATURES,
+    description:
+      'Tell Claude in the Code Mode REPL prompt to scan many files with one shell command instead of one Read call per file',
   },
   {
     id: 'worktree-mode',
@@ -1054,6 +1078,18 @@ export const buildPatchImplementations = (
     'code-mode-async-script-output': {
       fn: c => writeCodeModeAsyncScriptOutput(c),
       condition: !!config.settings.misc?.showCodeModeScriptOutput,
+    },
+    'code-mode-chained-calls': {
+      fn: c => writeCodeModeChainedCalls(c),
+      condition: !!config.settings.misc?.fixCodeModeChainedCalls,
+    },
+    'code-mode-wait-guidance': {
+      fn: c => writeCodeModeWaitGuidance(c),
+      condition: !!config.settings.misc?.codeModeWaitGuidance,
+    },
+    'code-mode-scan-guidance': {
+      fn: c => writeCodeModeScanGuidance(c),
+      condition: !!config.settings.misc?.codeModeScanGuidance,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

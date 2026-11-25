@@ -183,6 +183,12 @@ export function isPatchEnabledByConfig(
       return !!misc?.showReadResultContent;
     case 'code-mode-async-script-output':
       return !!misc?.showCodeModeScriptOutput;
+    case 'code-mode-chained-calls':
+      return !!misc?.fixCodeModeChainedCalls;
+    case 'code-mode-wait-guidance':
+      return !!misc?.codeModeWaitGuidance;
+    case 'code-mode-scan-guidance':
+      return !!misc?.codeModeScanGuidance;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':

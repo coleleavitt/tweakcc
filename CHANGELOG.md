@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode script output patch: an expanded `Code(...)` row in the Ctrl+O transcript shows the script's log and return value below its source (anthropics/claude-code#111539) - @coleleavitt
 - Add a Read result content patch: in the Ctrl+O transcript and in verbose mode, a Read row shows the text it returned, also for Read calls inside a Code Mode script (anthropics/claude-code#111539) - @coleleavitt
 - Add a Code Mode async script output patch: an async script's output is kept when it settles, so its expanded `Code(...)` row shows it too (with the script output toggle) - @coleleavitt
+- Add a Code Mode chained calls patch: steps a script chains on a command it left running (`.then(r => write(...))`) run when the command ends instead of being refused, so Claude no longer reruns the command - @coleleavitt
+- Add a Code Mode wait guidance patch: the REPL prompt tells Claude to wait for CI runs and other outside events with a shell command left running in the background (a short timeout in the async REPL, `run_in_background` elsewhere) and end its turn, instead of holding the session with sleep() and poll loops - @coleleavitt
+- Add a Code Mode scan guidance patch: the REPL prompt tells Claude to scan many files with one shell command instead of one `Read` call per file, which runs permission checks and hooks for every file - @coleleavitt
 
 ## [v4.4.0](https://github.com/Piebald-AI/tweakcc/releases/tag/v4.4.0) - 2026-10-10
 

@@ -99,6 +99,9 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     enableStableEventNonces: false,
     showReadResultContent: false,
     showCodeModeScriptOutput: false,
+    fixCodeModeChainedCalls: false,
+    codeModeWaitGuidance: false,
+    codeModeScanGuidance: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -935,6 +938,48 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.showCodeModeScriptOutput =
               !settings.misc!.showCodeModeScriptOutput;
+          });
+        },
+      },
+      {
+        id: 'fixCodeModeChainedCalls',
+        title: 'Code Mode: run chained steps after a script returns',
+        description:
+          'Steps a script chains on a command it did not await (e.g. writing a result file when a test suite ends) can make tool calls; without this they are refused and Claude reruns the command.',
+        getValue: () => settings.misc?.fixCodeModeChainedCalls ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.fixCodeModeChainedCalls =
+              !settings.misc!.fixCodeModeChainedCalls;
+          });
+        },
+      },
+      {
+        id: 'codeModeWaitGuidance',
+        title: 'Code Mode: wait for CI in the background',
+        description:
+          'Tell Claude to wait for CI runs, deploys and reviews with a background shell command and end its turn, instead of sleep() and poll loops that freeze the session.',
+        getValue: () => settings.misc?.codeModeWaitGuidance ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeWaitGuidance =
+              !settings.misc!.codeModeWaitGuidance;
+          });
+        },
+      },
+      {
+        id: 'codeModeScanGuidance',
+        title: 'Code Mode: scan files with one command',
+        description:
+          'Tell Claude to scan many files with one command (rg, python3 -c) inside a script instead of reading each file with its own Read call, each of which runs permission checks and hooks.',
+        getValue: () => settings.misc?.codeModeScanGuidance ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.codeModeScanGuidance =
+              !settings.misc!.codeModeScanGuidance;
           });
         },
       },

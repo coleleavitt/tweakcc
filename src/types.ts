@@ -149,6 +149,9 @@ export interface MiscConfig {
   enableStableEventNonces: boolean;
   showReadResultContent: boolean;
   showCodeModeScriptOutput: boolean;
+  fixCodeModeChainedCalls: boolean;
+  codeModeWaitGuidance: boolean;
+  codeModeScanGuidance: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;
