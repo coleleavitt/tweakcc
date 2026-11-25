@@ -728,6 +728,8 @@ export const DEFAULT_SETTINGS: Settings = {
     fixCodeModeChainedCalls: false,
     codeModeWaitGuidance: false,
     codeModeScanGuidance: false,
+    enableCodeModeReplPostToolUseForMods: false,
+    enableCodeModeStableNoteOrder: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,

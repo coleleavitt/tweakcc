@@ -102,6 +102,8 @@ export function MiscView({ onSubmit }: MiscViewProps) {
     fixCodeModeChainedCalls: false,
     codeModeWaitGuidance: false,
     codeModeScanGuidance: false,
+    enableCodeModeReplPostToolUseForMods: false,
+    enableCodeModeStableNoteOrder: false,
     enableContextLimitOverride: false,
     enableModelCustomizations: true,
     enableVoiceMode: false,
@@ -980,6 +982,35 @@ export function MiscView({ onSubmit }: MiscViewProps) {
             ensureMisc();
             settings.misc!.codeModeScanGuidance =
               !settings.misc!.codeModeScanGuidance;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeReplPostToolUseForMods',
+        title: 'Code Mode REPL output to mod PostToolUse',
+        description:
+          "Run a mod's catch-all classic.PostToolUse hook on REPL and Poll results too, so a redaction mod can rewrite a script's output with updatedToolOutput. Other tool hooks still see only the inner calls.",
+        getValue: () =>
+          settings.misc?.enableCodeModeReplPostToolUseForMods ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeReplPostToolUseForMods =
+              !settings.misc!.enableCodeModeReplPostToolUseForMods;
+          });
+        },
+      },
+      {
+        id: 'enableCodeModeStableNoteOrder',
+        title: 'Stable Code Mode note order',
+        description:
+          "Keep a REPL script's inner tool-call rows from moving plugin notes and reminders inside a tool-result message, so the next request does not drop thinking and rewrite the prompt cache.",
+        getValue: () => settings.misc?.enableCodeModeStableNoteOrder ?? false,
+        toggle: () => {
+          updateSettings(settings => {
+            ensureMisc();
+            settings.misc!.enableCodeModeStableNoteOrder =
+              !settings.misc!.enableCodeModeStableNoteOrder;
           });
         },
       },

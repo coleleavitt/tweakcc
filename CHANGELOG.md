@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode chained calls patch: steps a script chains on a command it left running (`.then(r => write(...))`) run when the command ends instead of being refused, so Claude no longer reruns the command - @coleleavitt
 - Add a Code Mode wait guidance patch: the REPL prompt tells Claude to wait for CI runs and other outside events with a shell command left running in the background (a short timeout in the async REPL, `run_in_background` elsewhere) and end its turn, instead of holding the session with sleep() and poll loops - @coleleavitt
 - Add a Code Mode scan guidance patch: the REPL prompt tells Claude to scan many files with one shell command instead of one `Read` call per file, which runs permission checks and hooks for every file - @coleleavitt
+- Add a Code Mode stable note order patch: a REPL script's inner tool-call rows no longer move a plugin note past a skill body on later requests, which dropped thinking and rewrote the prompt cache - @coleleavitt
+- Add a Code Mode REPL PostToolUse for mods patch: a mod's catch-all `classic.PostToolUse` hook now sees REPL and Poll results, so it can redact a script's output with `updatedToolOutput` - @coleleavitt
 
 ## [v4.4.0](https://github.com/Piebald-AI/tweakcc/releases/tag/v4.4.0) - 2026-10-10
 

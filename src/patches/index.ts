@@ -100,6 +100,8 @@ import { writeCodeModeAsyncScriptOutput } from './codeModeAsyncScriptOutput';
 import { writeCodeModeScanGuidance } from './codeModeScanGuidance';
 import { writeCodeModeWaitGuidance } from './codeModeWaitGuidance';
 import { writeCodeModeChainedCalls } from './codeModeChainedCalls';
+import { writeCodeModeReplPostToolUseForMods } from './codeModeReplPostToolUseForMods';
+import { writeCodeModeStableNoteOrder } from './codeModeStableNoteOrder';
 import { writeVoiceMode } from './voiceMode';
 import { writeChannelsMode } from './channelsMode';
 import { writeSkipDevChannelsDialog } from './skipDevChannelsDialog';
@@ -550,6 +552,20 @@ const PATCH_DEFINITIONS = [
     group: PatchGroup.FEATURES,
     description:
       'Tell Claude in the Code Mode REPL prompt to scan many files with one shell command instead of one Read call per file',
+  },
+  {
+    id: 'code-mode-repl-post-tool-use-for-mods',
+    name: 'Code Mode REPL PostToolUse for mods',
+    group: PatchGroup.FEATURES,
+    description:
+      "Let a mod's catch-all classic.PostToolUse hook see REPL and Poll results, so it can redact a script's output",
+  },
+  {
+    id: 'code-mode-stable-note-order',
+    name: 'Code Mode stable note order',
+    group: PatchGroup.FEATURES,
+    description:
+      "Keep a REPL script's inner tool-call rows from moving notes after a skill body, so a resent message matches the prompt cache",
   },
   {
     id: 'worktree-mode',
@@ -1090,6 +1106,14 @@ export const buildPatchImplementations = (
     'code-mode-scan-guidance': {
       fn: c => writeCodeModeScanGuidance(c),
       condition: !!config.settings.misc?.codeModeScanGuidance,
+    },
+    'code-mode-repl-post-tool-use-for-mods': {
+      fn: c => writeCodeModeReplPostToolUseForMods(c),
+      condition: !!config.settings.misc?.enableCodeModeReplPostToolUseForMods,
+    },
+    'code-mode-stable-note-order': {
+      fn: c => writeCodeModeStableNoteOrder(c),
+      condition: !!config.settings.misc?.enableCodeModeStableNoteOrder,
     },
     'worktree-mode': {
       fn: c => writeWorktreeMode(c),

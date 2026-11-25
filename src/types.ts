@@ -152,6 +152,8 @@ export interface MiscConfig {
   fixCodeModeChainedCalls: boolean;
   codeModeWaitGuidance: boolean;
   codeModeScanGuidance: boolean;
+  enableCodeModeReplPostToolUseForMods: boolean;
+  enableCodeModeStableNoteOrder: boolean;
   enableContextLimitOverride: boolean;
   enableModelCustomizations: boolean;
   enableVoiceMode: boolean;

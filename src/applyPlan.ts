@@ -189,6 +189,10 @@ export function isPatchEnabledByConfig(
       return !!misc?.codeModeWaitGuidance;
     case 'code-mode-scan-guidance':
       return !!misc?.codeModeScanGuidance;
+    case 'code-mode-repl-post-tool-use-for-mods':
+      return !!misc?.enableCodeModeReplPostToolUseForMods;
+    case 'code-mode-stable-note-order':
+      return !!misc?.enableCodeModeStableNoteOrder;
     case 'worktree-mode':
       return !!misc?.enableWorktreeMode;
     case 'feature-flag-overrides':
