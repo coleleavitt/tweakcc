@@ -37,9 +37,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add a Code Mode patch that gives the built-in `claude-code-guide` agent the REPL tool, so it runs in Code Mode when the session does (anthropics/claude-code#111386) (#1091) - @coleleavitt
 - Add a Code Mode patch that adds `$`cmd`.background()`, which starts a shell command as a background task and resolves at once with its task id and output file (anthropics/claude-code#110717) (#1091) - @coleleavitt
 - Add a Code Mode patch that makes `$(command)` refuse a command string with the word `undefined`, which an untagged template literal writes for an undefined value (#1091) - @coleleavitt
-- Add a patch that lists CLAUDE_CODE_EXPERIMENTAL_CODE_MODE in /doctor and /status when a project or local settings file sets it, since Claude Code ignores it there - @coleleavitt
-- Add a patch that keeps the whole text of a cut Code Mode script result in the REPL global `$0` and names it in the result - @coleleavitt
-- Add a patch that gives PostToolUse hooks the whole saved output of a shell call made by a Code Mode script, so a hook's rewrite no longer cuts the script's data to the preview - @coleleavitt
+- Add a patch that lists CLAUDE_CODE_EXPERIMENTAL_CODE_MODE in /doctor and /status when a project or local settings file sets it, since Claude Code ignores it there (#1092) - @coleleavitt
+- Add a patch that keeps the whole text of a cut Code Mode script result in the REPL global `$0` and names it in the result (#1092) - @coleleavitt
+- Add a patch that gives PostToolUse hooks the whole saved output of a shell call made by a Code Mode script, so a hook's rewrite no longer cuts the script's data to the preview (#1092) - @coleleavitt
 
 ## [v4.4.0](https://github.com/Piebald-AI/tweakcc/releases/tag/v4.4.0) - 2026-10-10
 
