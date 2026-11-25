@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix native patching for Claude Code 2.1.327 (#1077) - @gtkpad
 - Add a feature flag overrides patch: the `CLAUDE_INTERNAL_FC_OVERRIDES` env var (a JSON object) sets Claude Code's GrowthBook flags (#1084) - @coleleavitt
 - Add a nested teammates patch: agent-team teammates can start teammates of their own, which join the same team (#1085) - @coleleavitt
-- Add an agent model choice patch: the Agent tool's `model` parameter says when to pick haiku, sonnet or opus for a subagent - @coleleavitt
+- Add an agent model choice patch: the Agent tool's `model` parameter says when to pick haiku, sonnet or opus for a subagent (#1086) - @coleleavitt
 - Add a stable event nonces patch: Code Mode's event nonces stay the same across restarts, so resuming a session no longer rewrites its prompt cache from the first re-minted nonce on (#1083) - @coleleavitt
 - Add a Code Mode script output patch: an expanded `Code(...)` row in the Ctrl+O transcript shows the script's log and return value below its source (anthropics/claude-code#111539) - @coleleavitt
 - Add a Read result content patch: in the Ctrl+O transcript and in verbose mode, a Read row shows the text it returned, also for Read calls inside a Code Mode script (anthropics/claude-code#111539) - @coleleavitt
